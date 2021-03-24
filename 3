@@ -1,0 +1,119 @@
+import java.util.Scanner;
+
+public class RecordCountry {
+    public RecordCountry() {
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in, "cp1251");
+        System.out.println("Введите количество стран=> ");
+        int n = sc.nextInt();
+        Strana[] country = new Strana[n];
+        System.out.println("Введите информацию о странах: ");
+
+        int nommax;
+        for(nommax = 0; nommax < country.length; ++nommax) {
+            sc.nextLine();
+            country[nommax] = new Strana();
+            System.out.print("Название " + (nommax + 1) + "-й страны => ");
+            country[nommax].name = sc.nextLine();
+            System.out.print("Площадь " + (nommax + 1) + "-й страны => ");
+            country[nommax].square = sc.nextDouble();
+        }
+
+        System.out.println("\nХарактеристики стран:");
+
+        String var10001;
+        for(nommax = 0; nommax < country.length; ++nommax) {
+            var10001 = country[nommax].name;
+            System.out.println(var10001 + "\t" + country[nommax].square + " млн кв. км");
+        }
+
+        nommax = 0;
+        double max = country[nommax].square;
+
+        int i;
+        for(i = 0; i < country.length; ++i) {
+            if (country[i].square > max) {
+                max = country[i].square;
+                nommax = i;
+            }
+        }
+
+        System.out.println("\nСтрана с максимальной площадью :");
+        var10001 = country[nommax].name;
+        System.out.println(var10001 + "\t" + country[nommax].square + "млн кв. км");
+
+        int j;
+        Strana rab;
+        for(i = 0; i < country.length - 1; ++i) {
+            for(j = 0; j < country.length - 1 - i; ++j) {
+                if (country[j].square > country[j + 1].square) {
+                    rab = country[j];
+                    country[j] = country[j + 1];
+                    country[j + 1] = rab;
+                }
+            }
+        }
+
+        System.out.println("\nОтсортированный список по площади:");
+
+        for(i = 0; i < country.length; ++i) {
+            var10001 = country[i].name;
+            System.out.println(var10001 + "\t" + country[i].square + "млн кв. км");
+        }
+
+        for(i = 0; i < country.length - 1; ++i) {
+            for(j = 0; j < country.length - i - 1; ++j) {
+                if (country[j].name.compareTo(country[i + 1].name) > 0) {
+                    rab = country[j];
+                    country[j] = country[j + 1];
+                    country[j + 1] = rab;
+                }
+            }
+        }
+
+        System.out.println("\nОтсортированный список по названиям:");
+
+        for(i = 0; i < country.length; ++i) {
+            var10001 = country[i].name;
+            System.out.println(var10001 + "\t" + country[i].square + " млн кв. км");
+        }
+
+        double s = 0.0D;
+
+        for(int i = 0; i < country.length; ++i) {
+            s += country[i].square;
+        }
+
+        double sr = s / (double)country.length;
+        System.out.println("Средняя площадь =" + sr);
+        System.out.println("\nСтраны, с площадью больше средней");
+
+        for(int i = 0; i < country.length; ++i) {
+            if (country[i].square > sr) {
+                var10001 = country[i].name;
+                System.out.println(var10001 + "\t" + country[i].square + " млн кв. км");
+            }
+        }
+
+        sc.nextLine();
+        System.out.println("Введите название искомой страны=> ");
+        String name = sc.nextLine();
+        int nom = -1;
+
+        for(int i = 0; i < country.length; ++i) {
+            if (name.equalsIgnoreCase(country[i].name)) {
+                nom = i;
+            }
+        }
+
+        if (nom != -1) {
+            var10001 = country[nom].name;
+            System.out.println("Такая страна есть в списке. Это " + var10001 + " " + country[nom].square + " млн кв. км");
+        } else {
+            System.out.println("Такой страны нет в списке");
+        }
+
+    }
+}
